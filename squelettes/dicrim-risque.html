@@ -76,7 +76,7 @@
 			<B_autres_risques>
 			<ul class="liste-risques">
 				<BOUCLE_autres_risques(DICRIM_RISQUES){id_dicrim_risque != #ID_DICRIM_RISQUE}{statut=publie}{par ordre}{0,5}>
-				<li><a href="[(#URL_PAGE{dicrim_risque}|parametre_url{id_dicrim_risque,#ID_DICRIM_RISQUE})]">[(#TITRE)]</a></li>
+				<li><a href="[(#URL_PAGE{dicrim-risque}|parametre_url{id_dicrim_risque,#ID_DICRIM_RISQUE})]">[(#TITRE)]</a></li>
 				</BOUCLE_autres_risques>
 			</ul>
 			</B_autres_risques>
