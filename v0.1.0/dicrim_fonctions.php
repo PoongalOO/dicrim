@@ -358,4 +358,54 @@ function filtre_dicrim_afficher_vignette($id, $type='risque') {
     
     return $html;
 }
+
+/**
+ * Fonction pour traiter la demande de génération PDF
+ * Compatible avec le plugin SpiPDF
+ */
+function dicrim_generer_pdf() {
+    // Vérifier si SpiPDF est disponible
+    if (!function_exists('spipdf_generer')) {
+        // Si SpiPDF n'est pas disponible, rediriger vers la page normale
+        include_spip('inc/headers');
+        redirige_par_entete(generer_url_public('dicrim'));
+        return;
+    }
+    
+    // Configuration pour SpiPDF
+    $options = array(
+        'format' => 'A4',
+        'orientation' => 'P', // Portrait
+        'margin_left' => 20,
+        'margin_right' => 20,
+        'margin_top' => 25,
+        'margin_bottom' => 25,
+        'margin_header' => 10,
+        'margin_footer' => 10,
+        'titre' => 'DICRIM - ' . $GLOBALS['meta']['nom_site']
+    );
+    
+    // Générer le contenu HTML
+    $contexte = array();
+    $html = recuperer_fond('dicrim-pdf', $contexte);
+    
+    // Générer le PDF
+    return spipdf_generer($html, 'dicrim-' . date('Y-m-d') . '.pdf', $options);
+}
+
+/**
+ * Filtre pour nettoyer le contenu pour le PDF
+ */
+function filtre_dicrim_propre_pdf($texte) {
+    // Nettoyer le texte pour le PDF
+    $texte = propre($texte);
+    
+    // Supprimer les liens JavaScript qui peuvent poser problème
+    $texte = preg_replace('/<script[^>]*>.*?<\/script>/is', '', $texte);
+    
+    // Convertir les liens relatifs en absolus si nécessaire
+    $texte = str_replace('href="spip.php', 'href="' . url_de_base() . 'spip.php', $texte);
+    
+    return $texte;
+}
 ?>
