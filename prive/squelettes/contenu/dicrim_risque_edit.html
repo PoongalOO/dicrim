@@ -1,0 +1,13 @@
+[(#AUTORISER{modifier,dicrim_risque,#ENV{id_dicrim_risque}}|sinon_interdire_acces)]
+
+<h1 class="grostitre">
+	<BOUCLE_titre_dicrim_risque(DICRIM_RISQUES){id_dicrim_risque}{statut?}>
+		[(#TITRE|sinon{<:dicrim:nouveau_risque:>})]
+	</BOUCLE_titre_dicrim_risque>
+	[<:dicrim:nouveau_risque:>]
+	<//B_titre_dicrim_risque>
+</h1>
+
+<div class="ajax">
+	#FORMULAIRE_EDITER_DICRIM_RISQUE{#ENV{id_dicrim_risque,nouveau},#ENV{redirect,#URL_ECRIRE{dicrim_gestion}}}
+</div>

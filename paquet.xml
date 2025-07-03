@@ -1,0 +1,34 @@
+<paquet
+	prefix="dicrim"
+	categorie="edition"
+	version="1.0.0"
+	etat="stable"
+	compatibilite="[3.2.0;4.*]"
+	logo="prive/themes/spip/images/dicrim-32.png"
+	documentation=""
+	schema="1.0.0"
+>
+	<nom>DICRIM</nom>
+	<!-- Document d'Information Communal sur les RIsques Majeurs -->
+
+	<auteur lien=''>Plugin SPIP</auteur>
+
+	<licence>GNU/GPL v3</licence>
+
+	<necessite nom="porte_plume" compatibilite="[1.0.0;]" />
+	<necessite nom="ppp" compatibilite="[1.0.0;]" />
+
+	<pipeline nom="declarer_tables_objets_sql" inclure="base/dicrim_declarer.php" />
+	<pipeline nom="declarer_tables_interfaces" inclure="base/dicrim_declarer.php" />
+	<pipeline nom="declarer_tables_principales" inclure="base/dicrim_declarer.php" />
+	<pipeline nom="autoriser" inclure="inc/dicrim_autoriser.php" />
+	<pipeline nom="affiche_milieu" inclure="dicrim_pipelines.php" />
+	<pipeline nom="editer_contenu_objet" inclure="dicrim_pipelines.php" />
+	<pipeline nom="pre_edition" inclure="dicrim_pipelines.php" />
+	<pipeline nom="porte_plume_barre_pre_charger" inclure="dicrim_pipelines.php" />
+	<pipeline nom="porte_plume_lien_classe_vers_icone" inclure="dicrim_pipelines.php" />
+	<pipeline nom="header_prive" inclure="dicrim_pipelines.php" />
+	<pipeline nom="insert_head" inclure="dicrim_pipelines.php" />
+
+	<menu nom="dicrim_gestion" titre="dicrim:titre_dicrim" parent="menu_edition" icone="images/dicrim-16.png" action="dicrim_gestion" />
+</paquet>

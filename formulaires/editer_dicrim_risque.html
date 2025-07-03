@@ -1,0 +1,116 @@
+<div class='formulaire_spip formulaire_editer formulaire_#FORM formulaire_#FORM-#ENV{id_dicrim_risque,nouveau}'>
+	[<p class="reponse_formulaire reponse_formulaire_ok">(#ENV*{message_ok})</p>]
+	[<p class="reponse_formulaire reponse_formulaire_erreur">(#ENV*{message_erreur})</p>]
+
+	[(#ENV{editable}|oui)
+	<form method='post' action='#ENV{action}'><div>
+		#ACTION_FORMULAIRE{#ENV{action}}
+		<input type='hidden' name='id_dicrim_risque' value='#ENV{id_dicrim_risque}' />
+		[<input type='hidden' name='redirect' value='(#ENV{redirect})' />]
+
+		<ul>
+			<li class="editer editer_titre obligatoire[ (#ENV**{erreurs}|table_valeur{titre}|oui)erreur]">
+				<label for="titre"><:dicrim:titre:> *</label>
+				[<span class='erreur_message'>(#ENV**{erreurs}|table_valeur{titre})</span>]
+				<input type='text' class='text' name='titre' id='titre' value="[(#ENV{titre}|entites_html)]" />
+			</li>
+
+			<li class="editer editer_descriptif[ (#ENV**{erreurs}|table_valeur{descriptif}|oui)erreur]">
+				<label for="descriptif"><:dicrim:descriptif:></label>
+				[<span class='erreur_message'>(#ENV**{erreurs}|table_valeur{descriptif})</span>]
+				<textarea name='descriptif' id='descriptif' rows='3' cols='40' class="inserer_barre inserer_previsualisation">[(#ENV{descriptif}|entites_html)]</textarea>
+			</li>
+
+			<li class="editer editer_type_risque[ (#ENV**{erreurs}|table_valeur{type_risque}|oui)erreur]">
+				<label for="type_risque"><:dicrim:type_risque:></label>
+				[<span class='erreur_message'>(#ENV**{erreurs}|table_valeur{type_risque})</span>]
+				<select name='type_risque' id='type_risque'>
+					<option value=''></option>
+					<option value='naturel'[(#ENV{type_risque}|=={naturel}|oui) selected='selected']><:dicrim:risque_naturel:></option>
+					<option value='technologique'[(#ENV{type_risque}|=={technologique}|oui) selected='selected']><:dicrim:risque_technologique:></option>
+					<option value='transport'[(#ENV{type_risque}|=={transport}|oui) selected='selected']><:dicrim:risque_transport:></option>
+					<option value='sanitaire'[(#ENV{type_risque}|=={sanitaire}|oui) selected='selected']><:dicrim:risque_sanitaire:></option>
+				</select>
+			</li>
+
+			<li class="editer editer_ordre[ (#ENV**{erreurs}|table_valeur{ordre}|oui)erreur]">
+				<label for="ordre"><:dicrim:ordre:></label>
+				[<span class='erreur_message'>(#ENV**{erreurs}|table_valeur{ordre})</span>]
+				<input type='number' class='text' name='ordre' id='ordre' value="[(#ENV{ordre}|entites_html)]" />
+				<p class="explication"><:dicrim:aide_ordre:></p>
+			</li>
+
+			<li class="editer editer_identification[ (#ENV**{erreurs}|table_valeur{identification}|oui)erreur]">
+				<label for="identification"><:dicrim:identification:></label>
+				[<span class='erreur_message'>(#ENV**{erreurs}|table_valeur{identification})</span>]
+				<textarea name='identification' id='identification' rows='8' cols='40' class="inserer_barre inserer_previsualisation">[(#ENV{identification}|entites_html)]</textarea>
+				<p class="explication"><:dicrim:aide_identification:></p>
+			</li>
+
+			<li class="editer editer_consequences[ (#ENV**{erreurs}|table_valeur{consequences}|oui)erreur]">
+				<label for="consequences"><:dicrim:consequences:></label>
+				[<span class='erreur_message'>(#ENV**{erreurs}|table_valeur{consequences})</span>]
+				<textarea name='consequences' id='consequences' rows='8' cols='40' class="inserer_barre inserer_previsualisation">[(#ENV{consequences}|entites_html)]</textarea>
+				<p class="explication"><:dicrim:aide_consequences:></p>
+			</li>
+
+			<li class="editer editer_mesures_prises[ (#ENV**{erreurs}|table_valeur{mesures_prises}|oui)erreur]">
+				<label for="mesures_prises"><:dicrim:mesures_prises:></label>
+				[<span class='erreur_message'>(#ENV**{erreurs}|table_valeur{mesures_prises})</span>]
+				<textarea name='mesures_prises' id='mesures_prises' rows='8' cols='40' class="inserer_barre inserer_previsualisation">[(#ENV{mesures_prises}|entites_html)]</textarea>
+				<p class="explication"><:dicrim:aide_mesures_prises:></p>
+			</li>
+
+			<li class="editer editer_alerte[ (#ENV**{erreurs}|table_valeur{alerte}|oui)erreur]">
+				<label for="alerte"><:dicrim:alerte:></label>
+				[<span class='erreur_message'>(#ENV**{erreurs}|table_valeur{alerte})</span>]
+				<textarea name='alerte' id='alerte' rows='6' cols='40' class="inserer_barre inserer_previsualisation">[(#ENV{alerte}|entites_html)]</textarea>
+				<p class="explication"><:dicrim:aide_alerte:></p>
+			</li>
+
+			<li class="editer editer_consignes_securite[ (#ENV**{erreurs}|table_valeur{consignes_securite}|oui)erreur]">
+				<label for="consignes_securite"><:dicrim:consignes_securite:></label>
+				[<span class='erreur_message'>(#ENV**{erreurs}|table_valeur{consignes_securite})</span>]
+				<textarea name='consignes_securite' id='consignes_securite' rows='10' cols='40' class="inserer_barre inserer_previsualisation">[(#ENV{consignes_securite}|entites_html)]</textarea>
+				<p class="explication"><:dicrim:aide_consignes:></p>
+			</li>
+
+			<li class="editer editer_logo_risque[ (#ENV**{erreurs}|table_valeur{logo_risque}|oui)erreur]">
+				<label for="logo_risque"><:dicrim:logo_risque:></label>
+				[<span class='erreur_message'>(#ENV**{erreurs}|table_valeur{logo_risque})</span>]
+				[(#ENV{logo_risque}|oui)
+					<div class="logo_actuel">
+						<img src="#CHEMIN{img/dicrim/logos_risques/#ENV{logo_risque}}" alt="Logo actuel" />
+						<div class="supprimer_logo">
+							<input type="checkbox" name="supprimer_logo_risque" id="supprimer_logo_risque" value="oui" />
+							<label for="supprimer_logo_risque"><:dicrim:supprimer_logo:></label>
+						</div>
+					</div>
+				]
+				<input type="file" name="logo_risque" id="logo_risque" class="file" />
+				<p class="explication"><:dicrim:aide_logo_risque:></p>
+			</li>
+
+			<li class="editer editer_vignette_risque[ (#ENV**{erreurs}|table_valeur{vignette_risque}|oui)erreur]">
+				<label for="vignette_risque"><:dicrim:vignette_risque:></label>
+				[<span class='erreur_message'>(#ENV**{erreurs}|table_valeur{vignette_risque})</span>]
+				[(#ENV{vignette_risque}|oui)
+					<div class="vignette_actuelle">
+						<img src="#CHEMIN{img/dicrim/vignettes_risques/#ENV{vignette_risque}}" alt="Vignette actuelle" />
+						<div class="supprimer_vignette">
+							<input type="checkbox" name="supprimer_vignette_risque" id="supprimer_vignette_risque" value="oui" />
+							<label for="supprimer_vignette_risque"><:dicrim:supprimer_vignette:></label>
+						</div>
+					</div>
+				]
+				<input type="file" name="vignette_risque" id="vignette_risque" class="file" />
+				<p class="explication"><:dicrim:aide_vignette_risque:></p>
+			</li>
+		</ul>
+
+		[(#REM) ajouter les saisies supplementaires : extra et autre, a cet endroit ]
+		<!--extra-->
+		<p class='boutons'><input type='submit' class='submit' value='<:bouton_enregistrer:>' /></p>
+	</div></form>
+	]
+</div>

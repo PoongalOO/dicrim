@@ -1,0 +1,272 @@
+[(#REM) Squelette pour afficher un risque DICRIM individuel ]
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+	<meta charset="utf-8">
+	<title><BOUCLE_titre_risque(DICRIM_RISQUES){id_dicrim_risque}{statut=publie}>[(#TITRE)] - </BOUCLE_titre_risque>DICRIM - [(#NOM_SITE_SPIP|textebrut)]</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<BOUCLE_meta_risque(DICRIM_RISQUES){id_dicrim_risque}{statut=publie}>
+	<meta name="description" content="[(#DESCRIPTIF|couper{160}|textebrut)]">
+	</BOUCLE_meta_risque>
+	[(#REM) Inclusion des CSS du site ]
+	[<link rel="stylesheet" href="(#CHEMIN{css/perso.css})" type="text/css" />]
+	<INCLURE{fond=inclure/head}>
+</head>
+<body>
+	[(#REM) En-tête du site ]
+	<INCLURE{fond=inclure/header}>
+
+<BOUCLE_risque_principal(DICRIM_RISQUES){id_dicrim_risque}{statut=publie}>
+<article class="dicrim-risque-detail">
+	<header class="risque-header">
+		<h1>[(#TITRE)]</h1>
+		[<p class="risque-descriptif">(#DESCRIPTIF|propre)</p>]
+		<div class="risque-meta">
+			[<span class="risque-type badge badge-[(#TYPE_RISQUE)]">(#TYPE_RISQUE|dicrim_libelle_type_risque)</span>]
+		</div>
+		[(#ID_DICRIM_RISQUE|dicrim_afficher_logo{risque})]
+	</header>
+
+	<nav class="risque-navigation">
+		<a href="[(#URL_PAGE{dicrim})]" class="btn-retour">← Retour au DICRIM complet</a>
+	</nav>
+
+	<main class="risque-contenu">
+		[(#ID_DICRIM_RISQUE|dicrim_afficher_vignette{risque}|inserer_attribut{style, 'float: right; margin: 0 0 15px 15px; max-width: 250px;'})]
+
+		[<section class="risque-identification">
+			<h2><i class="icon-search"></i> Identification du risque</h2>
+			<div class="contenu-section">
+				(#IDENTIFICATION|propre)
+			</div>
+		</section>]
+
+		[<section class="risque-consequences">
+			<h2><i class="icon-warning"></i> Conséquences possibles</h2>
+			<div class="contenu-section">
+				(#CONSEQUENCES|propre)
+			</div>
+		</section>]
+
+		[<section class="risque-mesures">
+			<h2><i class="icon-shield"></i> Mesures de prévention prises</h2>
+			<div class="contenu-section">
+				(#MESURES_PRISES|propre)
+			</div>
+		</section>]
+
+		[<section class="risque-alerte">
+			<h2><i class="icon-bell"></i> Comment serez-vous alerté ?</h2>
+			<div class="contenu-section alerte-info">
+				(#ALERTE|propre)
+			</div>
+		</section>]
+
+		[<section class="risque-consignes">
+			<h2><i class="icon-list"></i> Consignes de sécurité</h2>
+			<div class="contenu-section consignes-securite">
+				(#CONSIGNES_SECURITE|propre)
+			</div>
+		</section>]
+	</main>
+
+	<aside class="risque-sidebar">
+		<div class="widget risques-connexes">
+			<h3>Autres risques</h3>
+			<B_autres_risques>
+			<ul class="liste-risques">
+				<BOUCLE_autres_risques(DICRIM_RISQUES){id_dicrim_risque != #ID_DICRIM_RISQUE}{statut=publie}{par ordre}{0,5}>
+				<li><a href="[(#URL_PAGE{dicrim_risque}|parametre_url{id_dicrim_risque,#ID_DICRIM_RISQUE})]">[(#TITRE)]</a></li>
+				</BOUCLE_autres_risques>
+			</ul>
+			</B_autres_risques>
+		</div>
+
+		<div class="widget contact-urgence">
+			<h3>En cas d'urgence</h3>
+			<div class="numeros-urgence">
+				<p><strong>15</strong> - SAMU</p>
+				<p><strong>18</strong> - Pompiers</p>
+				<p><strong>17</strong> - Police/Gendarmerie</p>
+				<p><strong>112</strong> - Numéro d'urgence européen</p>
+			</div>
+		</div>
+	</aside>
+</article>
+
+<style>
+.dicrim-risque-detail {
+	max-width: 1200px;
+	margin: 0 auto;
+	padding: 20px;
+	display: grid;
+	grid-template-areas: 
+		"header header"
+		"nav nav"
+		"main sidebar";
+	grid-template-columns: 2fr 1fr;
+	gap: 30px;
+}
+
+.risque-header {
+	grid-area: header;
+	text-align: center;
+	padding: 30px;
+	background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+	color: white;
+	border-radius: 12px;
+}
+
+.risque-navigation {
+	grid-area: nav;
+}
+
+.risque-contenu {
+	grid-area: main;
+}
+
+.risque-sidebar {
+	grid-area: sidebar;
+}
+
+.btn-retour {
+	display: inline-block;
+	background: #74b9ff;
+	color: white;
+	padding: 12px 24px;
+	text-decoration: none;
+	border-radius: 6px;
+	transition: background 0.3s;
+}
+
+.btn-retour:hover {
+	background: #0984e3;
+}
+
+.badge {
+	display: inline-block;
+	padding: 6px 12px;
+	border-radius: 20px;
+	font-size: 0.9em;
+	font-weight: bold;
+	text-transform: uppercase;
+}
+
+.badge-naturel { background: #00b894; color: white; }
+.badge-technologique { background: #e17055; color: white; }
+.badge-transport { background: #0984e3; color: white; }
+.badge-sanitaire { background: #a29bfe; color: white; }
+
+.risque-contenu section {
+	margin-bottom: 30px;
+	padding: 25px;
+	background: white;
+	border-radius: 8px;
+	box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.risque-contenu h2 {
+	color: #2d3436;
+	border-bottom: 3px solid #ddd;
+	padding-bottom: 10px;
+	margin-bottom: 20px;
+}
+
+.alerte-info {
+	background: #fff3cd !important;
+	border-left: 5px solid #ffc107;
+}
+
+.consignes-securite {
+	background: #d4edda !important;
+	border-left: 5px solid #28a745;
+}
+
+.widget {
+	background: white;
+	padding: 20px;
+	border-radius: 8px;
+	box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+	margin-bottom: 20px;
+}
+
+.widget h3 {
+	color: #2d3436;
+	margin-bottom: 15px;
+	border-bottom: 2px solid #ddd;
+	padding-bottom: 8px;
+}
+
+.liste-risques {
+	list-style: none;
+	padding: 0;
+}
+
+.liste-risques li {
+	margin-bottom: 8px;
+}
+
+.liste-risques a {
+	color: #0984e3;
+	text-decoration: none;
+	padding: 5px 0;
+	display: block;
+	border-bottom: 1px solid #eee;
+}
+
+.liste-risques a:hover {
+	color: #2d3436;
+	background: #f8f9fa;
+	padding-left: 10px;
+	transition: all 0.3s;
+}
+
+.numeros-urgence p {
+	margin: 10px 0;
+	padding: 8px;
+	background: #fff5f5;
+	border-left: 4px solid #d63031;
+	font-weight: bold;
+}
+
+@media (max-width: 768px) {
+	.dicrim-risque-detail {
+		grid-template-areas: 
+			"header"
+			"nav"
+			"main"
+			"sidebar";
+		grid-template-columns: 1fr;
+	}
+}
+</style>
+
+[(#REM) Pied de page ]
+<INCLURE{fond=inclure/footer}>
+
+</body>
+</html>
+</BOUCLE_risque_principal>
+
+<//B_risque_principal>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+	<meta charset="utf-8">
+	<title>Risque non trouvé - DICRIM - [(#NOM_SITE_SPIP|textebrut)]</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<INCLURE{fond=inclure/head}>
+</head>
+<body>
+	<INCLURE{fond=inclure/header}>
+	
+<div class="erreur-404">
+	<h1>Risque non trouvé</h1>
+	<p>Le risque demandé n'existe pas ou n'est pas publié.</p>
+	<a href="[(#URL_PAGE{dicrim})]" class="btn-retour">← Retour au DICRIM</a>
+</div>
+
+<INCLURE{fond=inclure/footer}>
+</body>
+</html>
+<//risque_principal>

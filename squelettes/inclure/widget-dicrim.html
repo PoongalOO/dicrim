@@ -1,0 +1,261 @@
+[(#REM) Widget DICRIM à inclure dans d'autres squelettes ]
+
+<div class="dicrim-widget">
+	<header class="widget-header">
+		<h3>DICRIM - Risques majeurs</h3>
+		<p>Informez-vous sur les risques de votre commune</p>
+	</header>
+
+	<div class="widget-content">
+		<div class="dicrim-stats">
+			<B_stats_risques>
+			<BOUCLE_stats_risques(DICRIM_RISQUES){statut=publie}> </BOUCLE_stats_risques>
+			<div class="stat-item">
+				<span class="stat-nombre">[(#TOTAL_BOUCLE)]</span>
+				<span class="stat-label">Risque(s) identifié(s)</span>
+			</div>
+			<BOUCLE_stats_contenus(DICRIM_CONTENUS){statut=publie}> </BOUCLE_stats_contenus>
+			<div class="stat-item">
+				<span class="stat-nombre">[(#TOTAL_BOUCLE)]</span>
+				<span class="stat-label">Page(s) d'info</span>
+			</div>
+		</div>
+		</B_stats_risques>
+
+		<B_risques_resume>
+		<div class="risques-resume">
+			<h4>Principaux risques :</h4>
+			<ul class="liste-risques-widget">
+				<BOUCLE_risques_resume(DICRIM_RISQUES){statut=publie}{par ordre}{0,3}>
+				<li class="risque-item risque-[(#TYPE_RISQUE)]">
+					<a href="[(#URL_PAGE{dicrim_risque}|parametre_url{id_dicrim_risque,#ID_DICRIM_RISQUE})]">
+						<span class="risque-titre">[(#TITRE)]</span>
+						<span class="risque-type">[(#TYPE_RISQUE|dicrim_libelle_type_risque)]</span>
+					</a>
+				</li>
+				</BOUCLE_risques_resume>
+			</ul>
+		</div>
+		</B_risques_resume>
+	</div>
+
+	<footer class="widget-footer">
+		<div class="widget-actions">
+			<a href="[(#URL_PAGE{dicrim})]" class="btn-widget btn-primary">Consulter le DICRIM</a>
+			<a href="[(#URL_PAGE{dicrim-liste})]" class="btn-widget btn-secondary">Tous les contenus</a>
+		</div>
+		
+		<div class="urgences-rappel">
+			<p><strong>En cas d'urgence :</strong> <span class="numero-urgence">112</span></p>
+		</div>
+	</footer>
+</div>
+
+<style>
+.dicrim-widget {
+	/*background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);*/
+	background: linear-gradient(135deg, #148041 0%, #77A117 100%);
+	color: white;
+	border-radius: 12px;
+	overflow: hidden;
+	box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+	margin: 20px 80px;
+}
+
+.widget-header {
+	padding: 20px;
+	text-align: center;
+	background: rgba(255,255,255,0.1);
+}
+
+.widget-header h3 {
+	margin: 0 0 10px 0;
+	font-size: 1.4em;
+}
+
+.widget-header p {
+	margin: 0;
+	opacity: 0.9;
+	font-size: 0.95em;
+}
+
+.widget-content {
+	padding: 20px;
+}
+
+.dicrim-stats {
+	display: flex;
+	justify-content: space-around;
+	margin-bottom: 20px;
+	padding: 15px;
+	background: rgba(255,255,255,0.1);
+	border-radius: 8px;
+}
+
+.stat-item {
+	text-align: center;
+}
+
+.stat-nombre {
+	display: block;
+	font-size: 2em;
+	font-weight: bold;
+	line-height: 1;
+}
+
+.stat-label {
+	display: block;
+	font-size: 0.85em;
+	opacity: 0.9;
+	margin-top: 5px;
+}
+
+.risques-resume h4 {
+	margin: 0 0 15px 0;
+	font-size: 1.1em;
+}
+
+.liste-risques-widget {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+.risque-item {
+	margin-bottom: 8px;
+}
+
+.risque-item a {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 10px;
+	background: rgba(255,255,255,0.1);
+	border-radius: 6px;
+	color: white;
+	text-decoration: none;
+	transition: all 0.3s;
+}
+
+.risque-item a:hover {
+	background: rgba(255,255,255,0.2);
+	transform: translateX(5px);
+}
+
+.risque-titre {
+	font-weight: 500;
+}
+
+.risque-type {
+	font-size: 0.85em;
+	opacity: 0.8;
+	font-style: italic;
+}
+
+.widget-footer {
+	padding: 20px;
+	background: rgba(0,0,0,0.2);
+}
+
+.widget-actions {
+	display: flex;
+	gap: 10px;
+	margin-bottom: 15px;
+	flex-wrap: wrap;
+}
+
+.btn-widget {
+	flex: 1;
+	padding: 10px 15px;
+	text-align: center;
+	text-decoration: none;
+	border-radius: 6px;
+	font-weight: 500;
+	transition: all 0.3s;
+	min-width: 120px;
+}
+
+.btn-primary {
+	background: #28a745;
+	color: white;
+}
+
+.btn-primary:hover {
+	background: #1e7e34;
+}
+
+.btn-secondary {
+	background: rgba(255,255,255,0.2);
+	color: white;
+	border: 1px solid rgba(255,255,255,0.3);
+}
+
+.btn-secondary:hover {
+	background: rgba(255,255,255,0.3);
+}
+
+.urgences-rappel {
+	text-align: center;
+	font-size: 0.9em;
+	opacity: 0.9;
+}
+
+.numero-urgence {
+	background: #dc3545;
+	color: white;
+	padding: 3px 8px;
+	border-radius: 12px;
+	font-weight: bold;
+	font-size: 1.1em;
+}
+
+/* Variants pour différents emplacements */
+.dicrim-widget.compact {
+	max-width: 300px;
+}
+
+.dicrim-widget.compact .dicrim-stats {
+	flex-direction: column;
+	gap: 10px;
+}
+
+.dicrim-widget.compact .widget-actions {
+	flex-direction: column;
+}
+
+.dicrim-widget.horizontal {
+	display: flex;
+	max-width: none;
+}
+
+.dicrim-widget.horizontal .widget-header {
+	flex: 0 0 200px;
+}
+
+.dicrim-widget.horizontal .widget-content {
+	flex: 1;
+}
+
+.dicrim-widget.horizontal .widget-footer {
+	flex: 0 0 200px;
+}
+
+@media (max-width: 768px) {
+	.dicrim-stats {
+		flex-direction: column;
+		gap: 15px;
+	}
+	
+	.widget-actions {
+		flex-direction: column;
+	}
+	
+	.btn-widget {
+		min-width: auto;
+	}
+	
+	.dicrim-widget.horizontal {
+		flex-direction: column;
+	}
+}
+</style>

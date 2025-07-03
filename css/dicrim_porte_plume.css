@@ -1,0 +1,22 @@
+/**
+ * CSS spécifiques pour DICRIM
+ */
+
+/* Styles pour les textarea avec porte_plume */
+.textarea_porte_plume {
+    width: 100%;
+    max-width: 100%;
+    font-family: 'Courier New', Courier, monospace;
+    padding: 8px;
+    box-sizing: border-box;
+}
+
+/* Assurer que le conteneur de l'éditeur s'affiche correctement */
+.markItUpContainer {
+    width: 100%;
+}
+
+/* Styles pour les boutons porte_plume */
+.markItUpHeader ul li {
+    margin-right: 2px;
+}

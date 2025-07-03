@@ -1,0 +1,82 @@
+<div class='formulaire_spip formulaire_editer formulaire_#FORM formulaire_#FORM-#ENV{id_dicrim_contenu,nouveau}'>
+	[<p class="reponse_formulaire reponse_formulaire_ok">(#ENV*{message_ok})</p>]
+	[<p class="reponse_formulaire reponse_formulaire_erreur">(#ENV*{message_erreur})</p>]
+
+	[(#ENV{editable})
+	<form method='post' action='#ENV{action}'><div>
+		#ACTION_FORMULAIRE{#ENV{action}}
+		<input type='hidden' name='id_dicrim_contenu' value='#ENV{id_dicrim_contenu}' />
+		<input type='hidden' name='redirect' value='#ENV{redirect}' />
+
+		<ul>
+			<li class="editer editer_titre obligatoire[ (#ENV**{erreurs}|table_valeur{titre}|oui)erreur]">
+				<label for="titre"><:dicrim:titre:> *</label>
+				[<span class='erreur_message'>(#ENV**{erreurs}|table_valeur{titre})</span>]
+				<input type='text' class='text' name='titre' id='titre' value="[(#ENV{titre})]" />
+			</li>
+
+			<li class="editer editer_type_contenu[ (#ENV**{erreurs}|table_valeur{type_contenu}|oui)erreur]">
+				<label for="type_contenu"><:dicrim:type_contenu:></label>
+				[<span class='erreur_message'>(#ENV**{erreurs}|table_valeur{type_contenu})</span>]
+				<select name='type_contenu' id='type_contenu'>
+					<option value=''></option>
+					<option value='sommaire'[(#ENV{type_contenu}|=={sommaire}|oui) selected='selected']><:dicrim:sommaire:></option>
+					<option value='edito_maire'[(#ENV{type_contenu}|=={edito_maire}|oui) selected='selected']><:dicrim:edito_maire:></option>
+					<option value='quest_ce_dicrim'[(#ENV{type_contenu}|=={quest_ce_dicrim}|oui) selected='selected']><:dicrim:quest_ce_dicrim:></option>
+					<option value='quest_ce_risque_majeur'[(#ENV{type_contenu}|=={quest_ce_risque_majeur}|oui) selected='selected']><:dicrim:quest_ce_risque_majeur:></option>
+				</select>
+				<p class="explication"><:dicrim:aide_type_contenu:></p>
+			</li>
+
+			<li class="editer editer_ordre[ (#ENV**{erreurs}|table_valeur{ordre}|oui)erreur]">
+				<label for="ordre"><:dicrim:ordre:></label>
+				[<span class='erreur_message'>(#ENV**{erreurs}|table_valeur{ordre})</span>]
+				<input type='number' class='text' name='ordre' id='ordre' value="[(#ENV{ordre})]" />
+				<p class="explication"><:dicrim:aide_ordre:></p>
+			</li>
+
+			<li class="editer editer_contenu[ (#ENV**{erreurs}|table_valeur{contenu}|oui)erreur]">
+				<label for="contenu"><:dicrim:contenu:></label>
+				[<span class='erreur_message'>(#ENV**{erreurs}|table_valeur{contenu})</span>]
+				<textarea name='contenu' id='contenu' rows='15' cols='40' class="inserer_barre inserer_previsualisation">[(#ENV{contenu})]</textarea>
+			</li>
+
+			<li class="editer editer_logo_contenu[ (#ENV**{erreurs}|table_valeur{logo_contenu}|oui)erreur]">
+				<label for="logo_contenu"><:dicrim:logo_contenu:></label>
+				[<span class='erreur_message'>(#ENV**{erreurs}|table_valeur{logo_contenu})</span>]
+				[(#ENV{logo_contenu}|oui)
+					<div class="logo_actuel">
+						<img src="#CHEMIN{img/dicrim/logos_contenus/#ENV{logo_contenu}}" alt="Logo actuel" />
+						<div class="supprimer_logo">
+							<input type="checkbox" name="supprimer_logo_contenu" id="supprimer_logo_contenu" value="oui" />
+							<label for="supprimer_logo_contenu"><:dicrim:supprimer_logo:></label>
+						</div>
+					</div>
+				]
+				<input type="file" name="logo_contenu" id="logo_contenu" class="file" />
+				<p class="explication"><:dicrim:aide_logo_contenu:></p>
+			</li>
+
+			<li class="editer editer_vignette_contenu[ (#ENV**{erreurs}|table_valeur{vignette_contenu}|oui)erreur]">
+				<label for="vignette_contenu"><:dicrim:vignette_contenu:></label>
+				[<span class='erreur_message'>(#ENV**{erreurs}|table_valeur{vignette_contenu})</span>]
+				[(#ENV{vignette_contenu}|oui)
+					<div class="vignette_actuelle">
+						<img src="#CHEMIN{img/dicrim/vignettes_contenus/#ENV{vignette_contenu}}" alt="Vignette actuelle" />
+						<div class="supprimer_vignette">
+							<input type="checkbox" name="supprimer_vignette_contenu" id="supprimer_vignette_contenu" value="oui" />
+							<label for="supprimer_vignette_contenu"><:dicrim:supprimer_vignette:></label>
+						</div>
+					</div>
+				]
+				<input type="file" name="vignette_contenu" id="vignette_contenu" class="file" />
+				<p class="explication"><:dicrim:aide_vignette_contenu:></p>
+			</li>
+		</ul>
+
+		[(#REM) ajouter les saisies supplementaires : extra et autre, a cet endroit ]
+		<!--extra-->
+		<p class='boutons'><input type='submit' class='submit' value='<:bouton_enregistrer:>' /></p>
+	</div></form>
+	]
+</div>

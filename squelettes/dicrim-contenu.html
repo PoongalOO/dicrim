@@ -1,0 +1,85 @@
+[(#REM) Squelette pour afficher un contenu DICRIM individuel ]
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+	<meta charset="utf-8">
+	<title><BOUCLE_titre_contenu(DICRIM_CONTENUS){id_dicrim_contenu}{statut=publie}>[(#TITRE)] - </BOUCLE_titre_contenu>DICRIM - [(#NOM_SITE_SPIP|textebrut)]</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<INCLURE{fond=inclure/head}>
+</head>
+<body>
+	<INCLURE{fond=inclure/header}>
+
+<BOUCLE_contenu_principal(DICRIM_CONTENUS){id_dicrim_contenu}{statut=publie}>
+<article class="dicrim-contenu-detail" style="max-width: 1200px; margin: 0 auto; padding: 20px;">
+	<header class="contenu-header" style="text-align: center; padding: 30px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border-radius: 12px; margin-bottom: 30px;">
+		<h1 style="margin: 0 0 15px 0;">[(#TITRE)]</h1>
+		[<p class="contenu-type" style="margin: 0; opacity: 0.9;">(#TYPE_CONTENU|dicrim_libelle_type_contenu)</p>]
+		
+		[(#ID_DICRIM_CONTENU|dicrim_afficher_logo{contenu})]
+	</header>
+
+	<nav class="contenu-navigation" style="margin-bottom: 30px;">
+		<a href="[(#URL_PAGE{dicrim})]" style="display: inline-block; background: #74b9ff; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px;">← Retour au DICRIM complet</a>
+	</nav>
+
+	<main class="contenu-corps" style="background: white; padding: 30px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+		[(#REM) Affichage de la vignette si disponible ]
+		[(#ID_DICRIM_CONTENU|dicrim_afficher_vignette{contenu}|inserer_attribut{style, 'float: right; margin: 0 0 15px 15px; max-width: 250px;'})]
+		
+		<div class="contenu-texte">
+			[(#CONTENU|propre)]
+		</div>
+	</main>
+
+	<aside class="contenu-sidebar" style="margin-top: 30px;">
+		<div style="background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+			<h3 style="margin-bottom: 15px; color: #2d3436;">Navigation DICRIM</h3>
+			<ul style="list-style: none; padding: 0;">
+				<li style="margin-bottom: 10px;"><a href="[(#URL_PAGE{dicrim})]">Document complet</a></li>
+				<li style="margin-bottom: 10px;"><a href="[(#URL_PAGE{dicrim-liste})]">Tous les contenus</a></li>
+			</ul>
+		</div>
+
+		<B_autres_contenus>
+		<div style="background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); margin-top: 20px;">
+			<h3 style="margin-bottom: 15px; color: #2d3436;">Autres contenus</h3>
+			<ul style="list-style: none; padding: 0;">
+				<BOUCLE_autres_contenus(DICRIM_CONTENUS){id_dicrim_contenu != #ID_DICRIM_CONTENU}{statut=publie}{par ordre}{0,5}>
+				<li style="margin-bottom: 8px;">
+					<a href="[(#URL_PAGE{dicrim_contenu}|parametre_url{id_dicrim_contenu,#ID_DICRIM_CONTENU})]" style="color: #0984e3; padding: 5px 0; display: block; border-bottom: 1px solid #eee;">[(#TITRE)]</a>
+				</li>
+				</BOUCLE_autres_contenus>
+			</ul>
+		</div>
+		</B_autres_contenus>
+	</aside>
+</article>
+</BOUCLE_contenu_principal>
+
+<//B_contenu_principal>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+	<meta charset="utf-8">
+	<title>Contenu non trouvé - DICRIM - [(#NOM_SITE_SPIP|textebrut)]</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<INCLURE{fond=inclure/head}>
+</head>
+<body>
+	<INCLURE{fond=inclure/header}>
+	
+<div style="max-width: 800px; margin: 50px auto; padding: 20px; text-align: center;">
+	<h1>Contenu non trouvé</h1>
+	<p>Le contenu demandé n'existe pas ou n'est pas publié.</p>
+	<a href="[(#URL_PAGE{dicrim})]" style="display: inline-block; background: #74b9ff; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px;">← Retour au DICRIM</a>
+</div>
+
+<INCLURE{fond=inclure/footer}>
+</body>
+</html>
+<//contenu_principal>
+
+<INCLURE{fond=inclure/footer}>
+</body>
+</html>

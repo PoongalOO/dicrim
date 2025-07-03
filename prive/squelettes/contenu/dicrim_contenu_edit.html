@@ -1,0 +1,13 @@
+[(#AUTORISER{modifier,dicrim_contenu,#ENV{id_dicrim_contenu}}|sinon_interdire_acces)]
+
+<h1 class="grostitre">
+	<BOUCLE_titre_dicrim_contenu(DICRIM_CONTENUS){id_dicrim_contenu}{statut?}>
+		[(#TITRE|sinon{<:dicrim:nouveau_contenu:>})]
+	</BOUCLE_titre_dicrim_contenu>
+	[<:dicrim:nouveau_contenu:>]
+	<//B_titre_dicrim_contenu>
+</h1>
+
+<div class="ajax">
+	#FORMULAIRE_EDITER_DICRIM_CONTENU{#ENV{id_dicrim_contenu,nouveau},#ENV{redirect,#URL_ECRIRE{dicrim_gestion}}}
+</div>

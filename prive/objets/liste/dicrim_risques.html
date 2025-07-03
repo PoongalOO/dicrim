@@ -1,0 +1,40 @@
+[(#SET{defaut_tri,#ARRAY{
+	multi ordre,1,
+	multi titre,1,
+	id_dicrim_risque,1,
+	date,-1
+}})]<B_liste_dicrim_risques>
+<div class="liste-objets dicrim_risques">
+<table class='spip liste'>
+	[<caption><strong class="caption">(#ENV*{titre,[(#GRAND_TOTAL|singulier_ou_pluriel{dicrim:un_risque,dicrim:nb_risques})]})</strong></caption>]
+	<thead>
+		<tr class='first_row'>
+			<th class='statut' scope='col'>[(#TRI{statut,<:lien_trier_statut:>,ajax})]</th>
+			<th class='ordre' scope='col'>[(#TRI{ordre,<:dicrim:ordre:>,ajax})]</th>
+			<th class='titre principale' scope='col'>[(#TRI{titre,<:info_titre:>,ajax})]</th>
+			<th class='type_risque' scope='col'>[(#TRI{type_risque,<:dicrim:type_risque:>,ajax})]</th>
+			<th class='date' scope='col'>[(#TRI{date,<:date:>,ajax})]</th>
+			<th class='id' scope='col'>[(#TRI{id_dicrim_risque,<:info_numero_abbreviation:>,ajax})]</th>
+		</tr>
+	</thead>
+	<tbody>
+	<BOUCLE_liste_dicrim_risques(DICRIM_RISQUES){id_mot?}{id_auteur?}{statut?}{age?}{recherche?}{tri #ENV{par,num ordre},#GET{defaut_tri}}{par ordre}{pagination #ENV{nb,10}}>
+		<tr class='[(#COMPTEUR_BOUCLE|alterner{row_odd,row_even})]'>
+			<td class='statut'>[(#STATUT|puce_statut{dicrim_risque,#ID_DICRIM_RISQUE})]</td>
+			<td class='ordre'>#ORDRE</td>
+			<td class='titre principale'><a href="[(#ID_DICRIM_RISQUE|generer_url_entite{dicrim_risque})]" title="<:info_numero_abbreviation|attribut_html:> #ID_DICRIM_RISQUE">[(#TITRE)]</a></td>
+			<td class='type_risque'>#TYPE_RISQUE</td>
+			<td class='date'>[(#DATE|affdate_jourcourt)]</td>
+			<td class='id'>[(#AUTORISER{modifier,dicrim_risque,#ID_DICRIM_RISQUE}|?{
+				<a href="[(#ID_DICRIM_RISQUE|generer_url_entite{dicrim_risque})]">#ID_DICRIM_RISQUE</a>,
+				#ID_DICRIM_RISQUE
+			})]</td>
+		</tr>
+	</BOUCLE_liste_dicrim_risques>
+	</tbody>
+</table>
+[<p class='pagination'>(#PAGINATION{prive})</p>]
+</div>
+</B_liste_dicrim_risques>
+<div class="liste-objets dicrim_risques caption-wrap"><strong class="caption"><:dicrim:aucun_risque:></strong></div>
+<//B_liste_dicrim_risques>

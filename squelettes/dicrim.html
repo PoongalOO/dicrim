@@ -1,0 +1,226 @@
+[(#REM) Squelette pour afficher le DICRIM complet ]
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+	<meta charset="utf-8">
+	<title>DICRIM - Document d'Information Communal sur les RIsques Majeurs - [(#NOM_SITE_SPIP|textebrut)]</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="Document d'Information Communal sur les RIsques Majeurs de notre commune.">
+	[(#REM) Inclusion des CSS du site ]
+	[<link rel="stylesheet" href="(#CHEMIN{css/perso.css})" type="text/css" />]
+	<INCLURE{fond=inclure/head}>
+</head>
+<body>
+	[(#REM) En-tête du site ]
+	<INCLURE{fond=inclure/header}>
+
+<div class="dicrim-complet">
+	<header class="dicrim-header">
+		<h1>Document d'Information Communal sur les RIsques Majeurs (DICRIM)</h1>
+		<p class="dicrim-intro">Ce document présente les risques majeurs auxquels notre commune peut être exposée et les mesures prises pour assurer la sécurité de la population.</p>
+	</header>
+
+	<nav class="dicrim-sommaire">
+		<h2>Sommaire</h2>
+		<ol>
+			<BOUCLE_contenus_sommaire(DICRIM_CONTENUS){statut=publie}{par ordre}>
+			<li><a href="#contenu-[(#ID_DICRIM_CONTENU)]">[(#TITRE)]</a></li>
+			</BOUCLE_contenus_sommaire>
+			
+			<B_risques_sommaire>
+			<li>Les risques majeurs
+				<ol>
+					<BOUCLE_risques_sommaire(DICRIM_RISQUES){statut=publie}{par ordre}>
+					<li><a href="#risque-[(#ID_DICRIM_RISQUE)]">[(#TITRE)]</a></li>
+					</BOUCLE_risques_sommaire>
+				</ol>
+			</li>
+			</B_risques_sommaire>
+		</ol>
+	</nav>
+
+	<main class="dicrim-contenu">
+		<B_contenus>
+		<BOUCLE_contenus(DICRIM_CONTENUS){statut=publie}{par ordre}>
+		<section class="dicrim-section dicrim-contenu-[(#TYPE_CONTENU)]" id="contenu-[(#ID_DICRIM_CONTENU)]">
+			<h2>[(#TITRE)]</h2>
+			<div class="contenu">
+				[(#CONTENU|propre)]
+			</div>
+		</section>
+		</BOUCLE_contenus>
+		</B_contenus>
+
+		<B_risques>
+		<section class="dicrim-section dicrim-risques">
+			<h2>Les risques majeurs sur notre commune</h2>
+			
+			<BOUCLE_risques(DICRIM_RISQUES){statut=publie}{par ordre}>
+			<article class="dicrim-risque dicrim-risque-[(#TYPE_RISQUE)]" id="risque-[(#ID_DICRIM_RISQUE)]">
+				<header class="risque-header">
+					<h3>[(#TITRE)]</h3>
+					[<p class="risque-descriptif">(#DESCRIPTIF|propre)</p>]
+					[<p class="risque-type"><strong>Type :</strong> (#TYPE_RISQUE|dicrim_libelle_type_risque)</p>]
+				</header>
+
+				<div class="risque-contenu">
+					[<div class="risque-identification">
+						<h4>Identification du risque</h4>
+						(#IDENTIFICATION|propre)
+					</div>]
+
+					[<div class="risque-consequences">
+						<h4>Conséquences possibles</h4>
+						(#CONSEQUENCES|propre)
+					</div>]
+
+					[<div class="risque-mesures">
+						<h4>Mesures de prévention prises</h4>
+						(#MESURES_PRISES|propre)
+					</div>]
+
+					[<div class="risque-alerte">
+						<h4>Comment serez-vous alerté ?</h4>
+						(#ALERTE|propre)
+					</div>]
+
+					[<div class="risque-consignes">
+						<h4>Consignes de sécurité</h4>
+						(#CONSIGNES_SECURITE|propre)
+					</div>]
+				</div>
+			</article>
+			</BOUCLE_risques>
+		</section>
+		</B_risques>
+	</main>
+
+	<footer class="dicrim-footer">
+		<p>Document établi le [(#DATE|affdate_jourcourt)]</p>
+		<p><a href="[(#URL_PAGE{dicrim-pdf})]" class="dicrim-pdf-link">Télécharger en PDF</a></p>
+	</footer>
+</div>
+
+[(#REM) Pied de page ]
+<INCLURE{fond=inclure/footer}>
+
+</body>
+</html>
+
+<style>
+.dicrim-complet {
+	max-width: 1200px;
+	margin: 0 auto;
+	padding: 20px;
+	font-family: Arial, sans-serif;
+	line-height: 1.6;
+}
+
+.dicrim-header {
+	text-align: center;
+	margin-bottom: 40px;
+	padding: 30px;
+	background: #f8f9fa;
+	border-radius: 8px;
+}
+
+.dicrim-header h1 {
+	color: #d63031;
+	margin-bottom: 15px;
+}
+
+.dicrim-sommaire {
+	background: #ffffff;
+	padding: 25px;
+	border: 2px solid #ddd;
+	border-radius: 8px;
+	margin-bottom: 30px;
+}
+
+.dicrim-sommaire ol {
+	counter-reset: item;
+	padding-left: 0;
+}
+
+.dicrim-sommaire li {
+	display: block;
+	margin-bottom: 8px;
+	padding-left: 30px;
+	position: relative;
+}
+
+.dicrim-sommaire li:before {
+	content: counter(item) ".";
+	counter-increment: item;
+	font-weight: bold;
+	position: absolute;
+	left: 0;
+}
+
+.dicrim-section {
+	margin-bottom: 40px;
+	padding: 25px;
+	background: #ffffff;
+	border-radius: 8px;
+	box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.dicrim-risque {
+	border-left: 5px solid #d63031;
+	margin-bottom: 30px;
+}
+
+.dicrim-risque-naturel { border-left-color: #00b894; }
+.dicrim-risque-technologique { border-left-color: #e17055; }
+.dicrim-risque-transport { border-left-color: #0984e3; }
+.dicrim-risque-sanitaire { border-left-color: #a29bfe; }
+
+.risque-header h3 {
+	color: #d63031;
+	margin-bottom: 10px;
+}
+
+.risque-contenu > div {
+	margin-bottom: 20px;
+	padding: 15px;
+	background: #f8f9fa;
+	border-radius: 4px;
+}
+
+.risque-contenu h4 {
+	color: #2d3436;
+	margin-bottom: 10px;
+	border-bottom: 2px solid #ddd;
+	padding-bottom: 5px;
+}
+
+.dicrim-footer {
+	text-align: center;
+	padding: 20px;
+	background: #2d3436;
+	color: white;
+	border-radius: 8px;
+	margin-top: 40px;
+}
+
+.dicrim-pdf-link {
+	display: inline-block;
+	background: #d63031;
+	color: white;
+	padding: 10px 20px;
+	text-decoration: none;
+	border-radius: 4px;
+	margin-top: 10px;
+}
+
+.dicrim-pdf-link:hover {
+	background: #b71c1c;
+}
+
+@media print {
+	.dicrim-sommaire a,
+	.dicrim-pdf-link {
+		display: none;
+	}
+}
+</style>
