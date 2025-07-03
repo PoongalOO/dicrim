@@ -6,9 +6,6 @@
 	[(#AUTORISER{creer,dicrim_contenu})
 		[(#URL_ECRIRE{dicrim_contenu_edit,new=oui}|icone_verticale{<:dicrim:nouveau_contenu:>,dicrim_contenu,new,right})]
 	]
-	[(#AUTORISER{creer,dicrim_risque})
-		[(#URL_ECRIRE{dicrim_risque_edit,new=oui}|icone_verticale{<:dicrim:nouveau_risque:>,dicrim_risque,new,right})]
-	]
 	[(#URL_ECRIRE{dicrim_consulter}|icone_verticale{<:dicrim:consulter_dicrim:>,dicrim,voir,right})]
 	[(#URL_ECRIRE{dicrim_pdf}|icone_verticale{<:dicrim:generer_pdf:>,dicrim,pdf,right})]
 </div>
@@ -20,6 +17,11 @@
 	</div>
 </div>
 
+<div class="dicrim-actions">
+	[(#AUTORISER{creer,dicrim_risque})
+		[(#URL_ECRIRE{dicrim_risque_edit,new=oui}|icone_verticale{<:dicrim:nouveau_risque:>,dicrim_risque,new,right})]
+	]
+</div>
 <div class="dicrim-risques">
 	<h2>Risques</h2>
 	<div class="ajax">
